@@ -39,8 +39,8 @@ const EDITOR = {
 let LEVELS = [
 
     [
-        {"content":[{"x":430,"y":340,"w":40,"h":182,"t":"keydoor","e":"upper key"},{"x":570,"y":490,"w":20,"h":20,"t":"key","e":"upper key"},{"x":40,"y":400,"w":100,"h":20,"t":"platform","e":"upper key"},{"x":430,"y":150,"w":40,"h":171,"t":"keydoor","e":"goal door"},{"x":600,"y":290,"w":60,"h":30,"t":"platform","e":"goal door"},{"x":140,"y":570,"w":70,"h":30,"t":"platform","e":"none"},{"x":220,"y":320,"w":300,"h":20,"t":"platform","e":"upper key"},{"x":450,"y":520,"w":220,"h":40,"t":"platform","e":"none"},{"x":110,"y":520,"w":100,"h":50,"t":"platform","e":"none"},{"x":260,"y":470,"w":30,"h":60,"t":"platform","e":"none"},{"x":210,"y":520,"w":240,"h":70,"t":"platform","e":"none"},{"x":0,"y":150,"w":40,"h":450,"t":"platform","e":"none"},{"x":0,"y":130,"w":520,"h":20,"t":"platform","e":null}],"spawn":{"x":310,"y":280},"name":"a start and an end"}
-    ,   {"content":[{"x":20,"y":270,"w":760,"h":30,"t":"platform","e":"none"}],"spawn":{"x":250,"y":100},"name":"placeholder"}
+        {"content":[{"x":570,"y":490,"w":20,"h":20,"t":"key","e":"upper key"},{"x":40,"y":400,"w":100,"h":20,"t":"platform","e":"upper key"},{"x":600,"y":290,"w":60,"h":30,"t":"platform","e":"goal door"},{"x":140,"y":570,"w":70,"h":30,"t":"platform","e":"none"},{"x":110,"y":520,"w":100,"h":50,"t":"platform","e":"none"},{"x":260,"y":470,"w":30,"h":70,"t":"platform","e":"none"},{"x":0,"y":150,"w":40,"h":450,"t":"platform","e":"none"},{"x":430,"y":340,"w":40,"h":200,"t":"keydoor","e":"upper key"},{"x":450,"y":520,"w":220,"h":50,"t":"platform","e":"upper key"},{"x":670,"y":460,"w":130,"h":140,"t":"platform","e":"none"},{"x":210,"y":520,"w":240,"h":70,"t":"platform","e":"none"},{"x":710,"y":240,"w":90,"h":30,"t":"platform","e":"final key"},{"x":430,"y":150,"w":40,"h":180,"t":"keydoor","e":"final key"},{"x":550,"y":150,"w":60,"h":30,"t":"platform","e":"final key"},{"x":0,"y":0,"w":40,"h":110,"t":"platform","e":"final key"},{"x":0,"y":110,"w":520,"h":40,"t":"platform","e":"final key"},{"x":520,"y":320,"w":140,"h":20,"t":"lava","e":"final key"},{"x":660,"y":270,"w":140,"h":20,"t":"lava","e":"final key"},{"x":660,"y":290,"w":20,"h":50,"t":"lava","e":"final key"},{"x":220,"y":320,"w":300,"h":20,"t":"platform","e":"upper key"}],"spawn":{"x":310,"y":280},"name":"a start and an end"}
+    ,   {"content":[{"x":410,"y":550,"w":310,"h":50,"t":"platform","e":"none"},{"x":410,"y":450,"w":50,"h":20,"t":"platform","e":"none"},{"x":480,"y":270,"w":70,"h":20,"t":"platform","e":"none"},{"x":720,"y":240,"w":80,"h":360,"t":"platform","e":"none"},{"x":480,"y":120,"w":70,"h":20,"t":"platform","e":"none"},{"x":510,"y":80,"w":20,"h":20,"t":"key","e":"final key"},{"x":550,"y":0,"w":70,"h":400,"t":"platform","e":"none"},{"x":240,"y":250,"w":50,"h":30,"t":"lava","e":"final key"},{"x":170,"y":400,"w":40,"h":30,"t":"lava","e":"final key"},{"x":290,"y":210,"w":70,"h":160,"t":"platform","e":"none"},{"x":110,"y":50,"w":60,"h":380,"t":"platform","e":"final key"},{"x":0,"y":0,"w":400,"h":50,"t":"platform","e":"final key"},{"x":0,"y":460,"w":40,"h":60,"t":"platform","e":"final key"},{"x":0,"y":520,"w":290,"h":80,"t":"platform","e":"final key"},{"x":290,"y":370,"w":120,"h":230,"t":"platform","e":"none"}],"spawn":{"x":10,"y":280},"name":"the final key"}
     ,   {"content":[{"x":710,"y":580,"w":60,"h":20,"t":"platform","e":"none"},{"x":570,"y":470,"w":20,"h":130,"t":"lava","e":"none"},{"x":550,"y":450,"w":60,"h":20,"t":"platform","e":"none"},{"x":640,"y":500,"w":30,"h":30,"t":"platform","e":"none"},{"x":390,"y":410,"w":20,"h":150,"t":"lava","e":null},{"x":370,"y":390,"w":60,"h":20,"t":"platform","e":null},{"x":230,"y":310,"w":20,"h":130,"t":"lava","e":null},{"x":210,"y":290,"w":60,"h":20,"t":"platform","e":null},{"x":390,"y":0,"w":20,"h":200,"t":"lava","e":null},{"x":370,"y":200,"w":60,"h":20,"t":"platform","e":null},{"x":230,"y":90,"w":20,"h":20,"t":"lava","e":null},{"x":230,"y":0,"w":20,"h":20,"t":"lava","e":null},{"x":210,"y":110,"w":60,"h":20,"t":"platform","e":null},{"x":40,"y":200,"w":20,"h":300,"t":"lava","e":null},{"x":20,"y":180,"w":60,"h":20,"t":"platform","e":null},{"x":140,"y":120,"w":20,"h":130,"t":"lava","e":null},{"x":140,"y":0,"w":20,"h":30,"t":"lava","e":null},{"x":120,"y":250,"w":60,"h":20,"t":"platform","e":null},{"x":550,"y":0,"w":220,"h":20,"t":"platform","e":null},{"x":770,"y":0,"w":30,"h":600,"t":"platform","e":"none"}],"spawn":{"x":10,"y":280},"name":"lava walls"}
     ],
 
@@ -423,7 +423,7 @@ const player1 = new player(LEVELS[level_y][level_x].spawn.x,LEVELS[level_y][leve
 //  build level 
 
 buildcurrentlevel();
-
+levelhtml.value = LEVELS[level_y][level_x].name;
 
 
 // game loop 
@@ -518,6 +518,7 @@ function nextlevel(x = 0,y = 0){
 
     LEVELS[level_y][level_x].spawn.x = player1.x; 
     LEVELS[level_y][level_x].spawn.y = player1.y; 
+    levelhtml.value = LEVELS[level_y][level_x].name;
     buildcurrentlevel();
     }
 }
