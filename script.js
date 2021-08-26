@@ -127,16 +127,11 @@ class gameobject{
         let coltop = (y1 > this.y && y1 < this.y+this.height);
         let colbottom = (y2 > this.y && y2 < this.y+this.height);
 
-        let coltopin = (coltop && (colleft || colright) &&  !colbottom);
-        let colbottomin = (colbottom && (colleft || colright) &&  !coltop);
-        let colleftin = (colleft && (colbottom && coltop));
-        let colrightin = (colright && (colbottom && coltop));
-
         
         let col = (colright || colleft) && (coltop || colbottom) 
 
 
-        return {col,coltop,colbottom,colright,colleft,coltopin,colbottomin,colleftin,colrightin};
+        return {col,coltop,colbottom,colright,colleft};
     }
 
     setcolors(){
@@ -254,6 +249,9 @@ class player{
         this.onground = false;
 
         // gm collision 
+
+        let changexa = this.xa;
+        let changeya = this.ya;
         
         GAMEOBJECTS.forEach((v,i)=>{
             let collision = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size) ;
@@ -263,50 +261,52 @@ class player{
                 case "platform":
                 case "moving_horizontal_platform":
                 case "moving_vertical_platform":
-                    if(collision.coltopin){
-                        this.ya = Math.abs(this.ya)
-                        this.ya *=0.4; 
-                        this.y = v.y+v.height+this.size+2;
+                    
+                    if(collision.col){
+                        let tempcol;
+                        this.x -= this.xa;
+                        tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                        if(tempcol.col){
+                            this.y -= this.ya;
+                            tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                            if(tempcol.col){
+                                changeya = this.ya;
+                            }else{
+                                if(this.y < v.y){this.onground = true;}
+                                changeya *= -0.4;
+                                this.y -= this.ya;
+                            }
+                            this.y += this.ya;
+                        }else{ this.x -= this.xa; changexa *= -0.25;}
+                        this.x += this.xa;
                     }
-                    if(collision.colbottomin){
-                        this.ya = Math.abs(this.ya)
-                        this.ya *=-0.4; 
-                        this.y = v.y-this.size-1;
-                        this.xa *= 0.8;
-                        this.onground = true;
-                    }
-                    if(collision.colleftin){
-                        this.xa *= -0.5; 
-                        this.x = v.x+v.width+this.size+1
-                    }
-                    if(collision.colrightin){
-                        this.xa *= -0.5; 
-                        this.x = v.x-this.size-1
-                    }
+
                     break;
                 case "lava":
                     if (collision.col){
+                        changexa = 0;
+                        changeya = 0;
                      this.reset();
                     }
                     break;
                 case "bounce":
-                    if(collision.coltopin){
-                        this.ya = Math.abs(this.ya)
-                        this.ya *=1.1; 
-                        this.y = v.y+v.height+this.size+2;
-                    }
-                    if(collision.colbottomin){
-                        this.ya = Math.abs(this.ya)
-                        this.ya *=-1.1; 
-                        this.y = v.y-this.size-1;
-                    }
-                    if(collision.colleftin){
-                        this.xa *= -1.1; 
-                        this.x = v.x+v.width+this.size+1
-                    }
-                    if(collision.colrightin){
-                        this.xa *= -1.1; 
-                        this.x = v.x-this.size-1
+                    if(collision.col){
+                        let tempcol;
+                        this.x -= this.xa;
+                        tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                        if(tempcol.col){
+                            this.y -= this.ya;
+                            tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                            if(tempcol.col){
+                                changeya = this.ya;
+                            }else{
+                                if(this.y < v.y){this.onground = true;}
+                                changeya *= -0.4;
+                                this.y -= this.ya;
+                            }
+                            this.y += this.ya;
+                        }else{ this.x -= this.xa; changexa *= -0.25;}
+                        this.x += this.xa;
                     }
                     break;
                 case "water":
@@ -334,25 +334,23 @@ class player{
                             LEVELS[level_y][level_x].content.splice(i,1);
                         }
                         else{
-                            if(collision.coltopin){
-                                this.ya = Math.abs(this.ya)
-                                this.ya *=0.4; 
-                                this.y = v.y+v.height+this.size+2;
-                            }
-                            if(collision.colbottomin){
-                                this.ya = Math.abs(this.ya)
-                                this.ya *=-0.4; 
-                                this.y = v.y-this.size-1;
-                                this.xa *= 0.8;
-                                this.onground = true;
-                            }
-                            if(collision.colleftin){
-                                this.xa *= -0.5; 
-                                this.x = v.x+v.width+this.size+1
-                            }
-                            if(collision.colrightin){
-                                this.xa *= -0.5; 
-                                this.x = v.x-this.size-1
+                            if(collision.col){
+                                let tempcol;
+                                this.x -= this.xa;
+                                tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                                if(tempcol.col){
+                                    this.y -= this.ya;
+                                    tempcol = v.collision(this.x-this.size,this.y-this.size,this.x+this.size,this.y+this.size);
+                                    if(tempcol.col){
+                                        changeya = this.ya;
+                                    }else{
+                                        if(this.y < v.y){this.onground = true;}
+                                        changeya *= -0.4;
+                                        this.y -= this.ya;
+                                    }
+                                    this.y += this.ya;
+                                }else{ this.x -= this.xa; changexa *= -0.25;}
+                                this.x += this.xa;
                             }
                         }
                         keyshtml.value = " Current Keys Collected:  \n " + KEYSCOLLECTED.toString();
@@ -364,6 +362,8 @@ class player{
 
         })
 
+        this.ya = changeya;
+        this.xa = changexa;
 
         if(this.onground){this.xa *= 0.8}else{this.xa *= 0.9}
       
